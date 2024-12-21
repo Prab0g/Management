@@ -1,0 +1,23 @@
+hostname <hostname>
+no ip domain lookup
+ipv6 unicast-routing
+banner motd #This is <hostname>, Authorized Access Only.#
+username admin privilege 15 algorithm-type scrypt secret cisco
+service password-encryption
+aaa new-model
+aaa authentication login default local-case
+ip domain name labenv.com
+crypto key generate rsa general-keys modulus 1024
+ip ssh version 2
+line vty 0 15
+privilege level 15
+logging synchronous
+exec-timeout 0 0
+transport input ssh
+monitor
+exit
+interface <interface>
+description This is the management interface
+ip address <ip address> <subnet mask>
+no shutdown
+exit
